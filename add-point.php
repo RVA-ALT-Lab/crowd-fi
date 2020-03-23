@@ -10,7 +10,6 @@ if (isset($_POST['new_point_submitted']) && $_POST['new_point_submitted'] == 'tr
 
         if (
             wp_verify_nonce( $nonce, 'submit_map_point')
-            && current_user_can('publish_posts')
             ){
                 $point_title = $_POST['point_title'];
                 $point_description = $_POST['point_description'];
@@ -83,8 +82,6 @@ get_header(); ?>
                   </button>
                 </div>
                 <div class="modal-body">
-
-                <?php if(is_user_logged_in()): ?>
                     <p>Enter some details about the point you want to capture. All of this info is optional, and you can edit it on the backend later. The logitude and latitude of your current position will be automatically logged when you click submit.</p>
 
                   <form action="" enctype="multipart/form-data" method="POST">
@@ -113,10 +110,12 @@ get_header(); ?>
                         <label for="fileInput">Image</label>
                         <input type="file" name="point-image" class="form-control-file" id="fileInput">
                     </div>
-                    <div class="form-group hidden">
+                    <div class="form-group">
+                        <label for="latitude">Latitude</label>
                         <input type="text" name="latitude" class="form-control" id="latitude">
                     </div>
-                    <div class="form-group hidden">
+                    <div class="form-group">
+                        <label for="longitude">Longitude</label>
                         <input type="text" name="longitude" class="form-control" id="longitude">
                     </div>
 
@@ -124,11 +123,6 @@ get_header(); ?>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </form>
-                <?php else: ?>
-                <p>You need to be logged in to submit a point to the map.</p>
-                <a href="<?php echo get_option('siteurl').'/wp-admin'?>">Click here to login</a>
-                <?php endif; ?>
-
 
                 </div>
               </div>
