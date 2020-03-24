@@ -193,6 +193,7 @@ body.logged-in .modal.show
 #front-page {
     text-align: center;
     color: white;
+    padding: 1rem;
 }
 
 #front-page {
