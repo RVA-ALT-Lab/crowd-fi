@@ -2,7 +2,7 @@ var MapTool = new MapUtilityClass($);
 
 var mymap = MapTool.initMap();
 
-L.polygon(MapTool.latlngs, { color: 'white', fillOpacity: .15 }).addTo(mymap);
+// L.polygon(MapTool.latlngs, { color: 'white', fillOpacity: .15 }).addTo(mymap);
 
 var mapPoints;
 MapTool.getMapPoints()
@@ -23,7 +23,7 @@ zoomButtonsArray.forEach(button => {
     })
 })
 
-var heatMapButton = document.querySelector('#toggleHeatmap')
-heatMapButton.addEventListener('click', function(){
-    MapTool.createHeatMapLayer(mapPoints, mymap)
-})
+// var heatMapButton = document.querySelector('#toggleHeatmap')
+// heatMapButton.addEventListener('click', function(){
+//     MapTool.createHeatMapLayer(mapPoints, mymap)
+// })

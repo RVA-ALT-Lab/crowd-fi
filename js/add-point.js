@@ -2,8 +2,6 @@ var MapTool = new MapUtilityClass();
 var mymap = MapTool.initMap();
 var isGeolocating = true;
 
-L.polygon(MapTool.latlngs, { color: 'white', fillOpacity: .15 }).addTo(mymap);
-
 MapTool.startGeolocation(mymap)
 
 var userPositionCircle = L.circle(
