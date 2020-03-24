@@ -3,7 +3,6 @@
 /*
 Template Name: Add Point
 **/
-
 if (isset($_POST['new_point_submitted']) && $_POST['new_point_submitted'] == 'true'){
 
         $nonce = $_POST['map_point_nonce_field'];
@@ -47,7 +46,9 @@ if (isset($_POST['new_point_submitted']) && $_POST['new_point_submitted'] == 'tr
             }
     }
 
-get_header(); ?>
+get_header();
+
+?>
 
             <div class="map">
                 <div class="row map-ui-row">
