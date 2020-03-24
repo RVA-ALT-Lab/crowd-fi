@@ -264,3 +264,7 @@ li a .fa-map-marker {
 .hidden {
   display:none;
 }
+
+div.cc-window.cc-banner {
+  display: none !important;
+}
