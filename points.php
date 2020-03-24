@@ -5,22 +5,14 @@ Template Name: Points List
 
 get_header(); ?>
             <div class="point-list col-md-5">
-                <button class="btn btn-primary btn-block" id="toggleHeatmap">Activate Heatmap</button>
+                <!-- <button class="btn btn-primary btn-block" id="toggleHeatmap">Activate Heatmap</button> -->
                 <ul>
 
                 <?php
-                if (isset(get_option('map_general_options')['hidden_work']) && !current_user_can('administrator') ){
-                    $args = array(
-                        'author' => get_current_user_id(),
-                        'post_type' => 'map-point',
-                        'posts_per_page' => -1
-                    );
-                } else {
                     $args = array(
                         'post_type' => 'map-point',
                         'posts_per_page' => -1
                     );
-                }
 
                 $point_query = new WP_Query($args);
 
