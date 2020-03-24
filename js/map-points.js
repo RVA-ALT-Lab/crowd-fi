@@ -2,8 +2,6 @@ var MapTool = new MapUtilityClass($);
 
 var mymap = MapTool.initMap();
 
-// L.polygon(MapTool.latlngs, { color: 'white', fillOpacity: .15 }).addTo(mymap);
-
 var mapPoints;
 MapTool.getMapPoints()
 .then(data => {
@@ -22,8 +20,3 @@ zoomButtonsArray.forEach(button => {
         mymap.flyTo([clickedPoint.meta.latitude, clickedPoint.meta.longitude])
     })
 })
-
-// var heatMapButton = document.querySelector('#toggleHeatmap')
-// heatMapButton.addEventListener('click', function(){
-//     MapTool.createHeatMapLayer(mapPoints, mymap)
-// })
