@@ -52,21 +52,18 @@ get_header();
 
             <div class="map">
                 <div class="row map-ui-row">
-                    <div class="col-4"></div>
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <button type="button" data-toggle="modal" data-target="#pointSubmitModal" class="btn btn-block btn-primary">
-                              Save Location</button>
-                                <button type="button" class="btn btn-block btn-secondary stop-geolocation">Add Location</button>
-                                <button type="button" class="btn btn-block btn-success start-geolocation" style="display: none;">Locate Me</button>
-                                <div id="add-popup" class="hidden">
-                                  <hr>
-                                  <p>To manually select a point to add, click the 'Stop Geolocation' button, click a point on the map to move the blue position indicator, then open the 'Add Point' dialogue.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                      <div class="card">
+                          <div class="card-body">
+                              <button type="button" data-toggle="modal" data-target="#pointSubmitModal" class="btn btn-block btn-primary">
+                            Save Location</button>
+                              <button type="button" class="btn btn-block btn-secondary stop-geolocation">Add Location</button>
+                              <button type="button" class="btn btn-block btn-success start-geolocation" style="display: none;">Locate Me</button>
+                              <div id="add-popup" class="hidden">
+                                <hr>
+                                <p>To manually select a point to add, click the 'Stop Geolocation' button, click a point on the map to move the blue position indicator, then open the 'Add Point' dialogue.</p>
+                              </div>
+                          </div>
+                      </div>
                 </div>
 
                 <div id="map">
