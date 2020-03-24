@@ -265,6 +265,7 @@ li a .fa-map-marker {
   display:none;
 }
 
-div.cc-window.cc-banner {
+div.cc-window.cc-banner,
+#private {
   display: none !important;
 }
