@@ -41,6 +41,7 @@ stopGeolocationButton.addEventListener('click', function () {
     MapTool.stopGeolocation(mymap)
     startGeolocationButton.style.display = 'block';
     stopGeolocationButton.style.display = 'none';
+    document.querySelector('#add-popup').classList.toggle('hidden')
 })
 
 startGeolocationButton.addEventListener('click', function () {
@@ -48,6 +49,7 @@ startGeolocationButton.addEventListener('click', function () {
     MapTool.startGeolocation(mymap)
     startGeolocationButton.style.display = 'none';
     stopGeolocationButton.style.display = 'block';
+    document.querySelector('#add-popup').classList.toggle('hidden')
 })
 
 mymap.on('click', onLocationFound)
