@@ -60,7 +60,7 @@ get_header();
                               <button type="button" class="btn btn-block btn-success start-geolocation" style="display: none;">Locate Me</button>
                               <div id="add-popup" class="hidden">
                                 <hr>
-                                <p>To manually select a point to add, click the 'Stop Geolocation' button, click a point on the map to move the blue position indicator, then open the 'Add Point' dialogue.</p>
+                                <p>To manually add a point, drag the map to the desired location. Click the map to place an icon, then click the 'Save Location' button to save and add details.</p>
                               </div>
                           </div>
                       </div>
