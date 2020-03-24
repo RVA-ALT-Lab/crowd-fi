@@ -55,8 +55,8 @@ get_header();
                       <div class="card">
                           <div class="card-body">
                               <button type="button" data-toggle="modal" data-target="#pointSubmitModal" class="btn btn-block btn-primary">
-                            Save Location</button>
-                              <button type="button" class="btn btn-block btn-secondary stop-geolocation">Add Location</button>
+                            Save Current Location</button>
+                              <button type="button" class="btn btn-block btn-secondary stop-geolocation">Manually Add Location</button>
                               <button type="button" class="btn btn-block btn-success start-geolocation" style="display: none;">Locate Me</button>
                               <div id="add-popup" class="hidden">
                                 <hr>
