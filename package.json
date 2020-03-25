@@ -1,0 +1,34 @@
+{
+  "name": "crowd-fi",
+  "version": "1.0.0",
+  "description": "This is a WordPress theme that uses leaflet.js and Mapbox to create a custom mapping application for use with students and faculty.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config build/webpack.config.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RVA-ALT-Lab/crowd-fi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RVA-ALT-Lab/crowd-fi/issues"
+  },
+  "homepage": "https://github.com/RVA-ALT-Lab/crowd-fi#readme",
+  "devDependencies": {
+    "css-loader": "^3.4.2",
+    "vue-loader": "^15.9.1",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.8.0",
+    "vue": "^2.6.11",
+    "vue2-google-maps": "^0.10.7"
+  }
+}

@@ -78,69 +78,9 @@ add_action('rest_api_init', function(){
 
 function map_tool_add_scripts () {
 
-    wp_register_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css');
-    wp_enqueue_style('bootstrap');
-
     wp_enqueue_style( 'style', get_stylesheet_uri() );
-
-    wp_register_style('font_awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
-    wp_enqueue_style('font_awesome');
-
-
-    wp_register_style('leaflet_css', 'https://unpkg.com/leaflet@1.2.0/dist/leaflet.css');
-    wp_enqueue_style('leaflet_css');
-
-    wp_register_script('popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js', null, null, true);
-    wp_enqueue_script('popper');
-
-    wp_register_script('jQuery3','https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js', null, null, true);
-    wp_enqueue_script('jQuery3');
-
-    wp_register_script('bootstrap_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js', null, null, true);
-    wp_enqueue_script('bootstrap_js');
-
-    wp_register_script('leaflet_js', 'https://unpkg.com/leaflet@1.2.0/dist/leaflet.js', null, null, true);
-    wp_enqueue_script('leaflet_js');
-
-    wp_register_script('leaflet_heat_js', get_template_directory_uri() . '/js/leaflet-heat.js', null, null, true );
-    wp_enqueue_script('leaflet_heat_js');
-
-    //Here we need to load some different scripts for different templates
-    if ( !is_front_page() ){
-        wp_register_script('theme_js', get_template_directory_uri() . '/js/app.js', null, null, true );
-        wp_localize_script('theme_js', 'WPURLS', array( 'siteurl' => get_option('siteurl') ));
-        wp_localize_script('theme_js', 'WPOPTIONS', array(
-            'currentuser' => wp_get_current_user(),
-            'theme_options' => get_option('map_general_options')
-
-        ));
-        wp_enqueue_script('theme_js');
-    }
-
-    if ( is_page_template('add-point.php')){
-        wp_register_script('add_page_js', get_template_directory_uri() . '/js/add-point.js', null, null, true );
-        wp_enqueue_script('add_page_js');
-    }
-
-    if ( is_page_template('points.php')){
-        wp_register_script('map_points_js', get_template_directory_uri() . '/js/map-points.js', null, null, true );
-        wp_enqueue_script('map_points_js');
-    }
-
-    if ( is_singular('map-point') ){
-        wp_register_script('single_map_point', get_template_directory_uri() . '/js/single-map-point.js', null, null, true );
-        wp_enqueue_script('single_map_point');
-    }
-
-    if ( is_page_template('map.php')){
-        wp_register_script('map_js', get_template_directory_uri() . '/js/map.js', null, null, true );
-        wp_enqueue_script('map_js');
-    }
-
-    if ( is_tax()){
-        wp_register_script('cat_js', get_template_directory_uri() . '/js/category.js', null, null, true );
-        wp_enqueue_script('cat_js');
-    }
+    wp_register_script('vue_js', get_template_directory_uri() . '/dist/main.js', null, null, true );
+    wp_enqueue_script('vue_js');
 
 }
 
