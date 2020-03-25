@@ -81,6 +81,9 @@ function map_tool_add_scripts () {
     wp_enqueue_style( 'style', get_stylesheet_uri() );
     wp_register_script('vue_js', get_template_directory_uri() . '/dist/main.js', null, null, true );
     wp_enqueue_script('vue_js');
+    wp_localize_script('vue_js', 'WP_OPTIONS', array(
+      'google_api_key' => get_option('map_general_options')['google_maps_api_key']
+  ));
 
 }
 
@@ -210,16 +213,16 @@ function map_create_settings (){
     register_setting('map_general_options', 'map_general_options', 'map_validate_settings');
     add_settings_section( 'text_section', 'General Options', 'map_display_section', 'map-tool' );
     $field_args = array(
-        'type'      => 'checkbox',
-        'id'        => 'hidden_work',
-        'name'      => 'hidden_work',
-        'desc'      => 'Check this box if you want to hide student submissions from one another. Administrators will always be able to see student work, but authors will not.',
+        'type'      => 'text',
+        'id'        => 'google_maps_api_key',
+        'name'      => 'google_maps_api_key',
+        'desc'      => 'Add your google maps API key here',
         'std'       => '',
-        'label_for' => 'hidden_work',
+        'label_for' => 'google_maps_api_key',
         'class'     => 'css_class'
       );
 
-    add_settings_field( 'hidden_work', 'Hide Student Work', 'map_display_setting', 'map-tool', 'text_section', $field_args );
+    add_settings_field( 'google_maps_api_key', 'Google Maps API Key', 'map_display_setting', 'map-tool', 'text_section', $field_args );
 }
 
 function map_validate_settings($input)
@@ -258,6 +261,7 @@ function map_display_setting($args)
               $options[$id] = esc_attr( $options[$id]);
               echo "<input class='regular-text$class' type='text' id='$id' name='" . $option_name . "[$id]' value='$options[$id]' />";
               echo ($desc != '') ? "<br /><span class='description'>$desc</span>" : "";
+              break;
           case 'checkbox':
              if (isset($options[$id])){
               $options[$id] = stripslashes($options[$id]);
@@ -272,26 +276,6 @@ function map_display_setting($args)
     }
 }
 
-
-
-function posts_for_current_author($query) {
-
-    if (isset(get_option('map_general_options')['hidden_work'])){
-        global $pagenow;
-
-        if( 'edit.php' != $pagenow || !$query->is_admin )
-            return $query;
-
-        if( !current_user_can( 'edit_others_posts' ) ) {
-            global $user_ID;
-            $query->set('author', $user_ID );
-        }
-        return $query;
-    }
-}
-
-
-add_filter('pre_get_posts', 'posts_for_current_author');
 
 
 ?>

@@ -6,6 +6,7 @@ module.exports = {
   entry: [
     './src/app.js'
   ],
+  watch: true,
   resolve: {
     alias: {
       vue$: 'vue/dist/vue.runtime.esm.js'

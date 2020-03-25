@@ -6,7 +6,7 @@ Vue.use(IconsPlugin)
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyCUTDRbRz_mv5UAyeaEGloV-4MpzdtUJBA",
+    key: window.WP_OPTIONS.google_api_key,
     libraries: "places" // necessary for places input
   }
 });
