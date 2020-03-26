@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-overlay :show="places.length === 0">
     <div class="container-fluid">
       <div class="row">
         <div class="col">
@@ -20,6 +21,7 @@
         </div>
       </div>
     </div>
+    </b-overlay>
   </div>
 </template>
 
