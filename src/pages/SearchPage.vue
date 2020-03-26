@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     getPlaces() {
-      fetch('/wp-json/wp/v2/map-point?_embed&per_page=100')
+      fetch(`${window.WP_OPTIONS.siteurl}/wp-json/wp/v2/map-point?_embed&per_page=100`)
       .then(res => res.json())
       .then(data => {
         data.forEach(point => {

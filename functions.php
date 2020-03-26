@@ -82,7 +82,8 @@ function map_tool_add_scripts () {
     wp_register_script('vue_js', get_template_directory_uri() . '/dist/main.js', null, null, true );
     wp_enqueue_script('vue_js');
     wp_localize_script('vue_js', 'WP_OPTIONS', array(
-      'google_api_key' => get_option('map_general_options')['google_maps_api_key']
+      'google_api_key' => get_option('map_general_options')['google_maps_api_key'],
+      'siteurl' => get_option('siteurl')
   ));
 
 }
