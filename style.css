@@ -10,3 +10,8 @@ GitHub Theme URI:
 .vue-map {
   height: 400px;
 }
+
+.autocomplete-input {
+  width: 350px;
+  margin-bottom: .5em;
+}

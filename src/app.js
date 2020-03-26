@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import router from './router/index'
+Vue.config.devtools = true
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import * as VueGoogleMaps from "vue2-google-maps"
 Vue.use(BootstrapVue)
@@ -17,5 +19,6 @@ import App from './App.vue'
 
 const app = new Vue({
   el:'#app',
+  router,
   render: h => h(App)
 })
