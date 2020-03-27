@@ -10,7 +10,6 @@
             :zoom="12"
             ref="mapRef"
             style="width:100%;  height: 400px;"
-            @click="initializeGoogle"
           >
             <gmap-marker
               :key="index"
@@ -76,22 +75,6 @@ export default {
         this.center.lat = position.coords.latitude
         this.center.lng = position.coords.longitude
       });
-    },
-    initializeGoogle () {
-      console.log(this.$refs.mapRef)
-      const directions = new this.google.maps.DirectionsService()
-      directions.route(
-        {
-          destination: 'Farmville,VA',
-          origin: 'Virginia Commonwealth University',
-          travelMode: 'DRIVING'
-        }, (data) => {
-            const directionsRenderer = new this.google.maps.DirectionsRenderer({
-              directions: data,
-              map: this.$refs.mapRef.$mapObject,
-              panel: this.$refs.directionsDiv
-            })
-        })
     }
   }
 }
