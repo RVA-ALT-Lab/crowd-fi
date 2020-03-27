@@ -8,7 +8,9 @@
           <gmap-map
             :center="center"
             :zoom="12"
+            ref="mapRef"
             style="width:100%;  height: 400px;"
+            @click="initializeGoogle"
           >
             <gmap-marker
               :key="index"
@@ -17,6 +19,7 @@
               @click="center=m.location"
             ></gmap-marker>
           </gmap-map>
+          <div class="directions" ref="directionsDiv"></div>
           <places :places="places"></places>
         </div>
       </div>
@@ -26,8 +29,8 @@
 </template>
 
 <script>
-
 import Places from '../components/Places.vue'
+import { gmapApi } from 'vue2-google-maps'
 export default {
   name: 'SearchPage',
   components: {
@@ -50,7 +53,8 @@ export default {
       return this.places.map(place => {
         return {location: {lat: parseFloat(place.meta.latitude), lng: parseFloat(place.meta.longitude) }}
       })
-    }
+    },
+    google: gmapApi
   },
   mounted () {
     this.geolocate()
@@ -72,6 +76,22 @@ export default {
         this.center.lat = position.coords.latitude
         this.center.lng = position.coords.longitude
       });
+    },
+    initializeGoogle () {
+      console.log(this.$refs.mapRef)
+      const directions = new this.google.maps.DirectionsService()
+      directions.route(
+        {
+          destination: 'Farmville,VA',
+          origin: 'Virginia Commonwealth University',
+          travelMode: 'DRIVING'
+        }, (data) => {
+            const directionsRenderer = new this.google.maps.DirectionsRenderer({
+              directions: data,
+              map: this.$refs.mapRef.$mapObject,
+              panel: this.$refs.directionsDiv
+            })
+        })
     }
   }
 }
