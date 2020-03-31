@@ -7,7 +7,7 @@
     label="What is the name of this location?"
     label-for="input-1"
   >
-    <b-form-input id="place.name" v-model="place.name" trim></b-form-input>
+    <b-form-input id="place.name" v-model="place.name"></b-form-input>
   </b-form-group>
   <b-form-group
     id="fieldset-2"
@@ -16,7 +16,7 @@
     label-for="input-1"
     placeholder="123 Main Street, Farmville Virginia 23901"
   >
-    <b-form-input id="place.formatted_address" v-model="place.formatted_address" trim></b-form-input>
+    <b-form-input id="place.formatted_address" v-model="place.formatted_address"></b-form-input>
   </b-form-group>
   <b-form-group
     id="fieldset-2"
