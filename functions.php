@@ -83,7 +83,8 @@ function map_tool_add_scripts () {
     wp_enqueue_script('vue_js');
     wp_localize_script('vue_js', 'WP_OPTIONS', array(
       'google_api_key' => get_option('map_general_options')['google_maps_api_key'],
-      'siteurl' => get_option('siteurl')
+      'siteurl' => get_option('siteurl'),
+      'rest_nonce' => wp_create_nonce( 'wp_rest' )
   ));
 
 }
@@ -277,6 +278,8 @@ function map_display_setting($args)
     }
 }
 
-
+require_once dirname(__FILE__) . '/api/MapPointController.php';
+$map_point_controller = new MapPointController();
+$map_point_controller->init();
 
 ?>

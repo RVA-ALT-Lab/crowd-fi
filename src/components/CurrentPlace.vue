@@ -33,11 +33,19 @@
       max-rows="6"
     ></b-form-textarea>
   </b-form-group>
-  <b-button block variant="primary">Save Location</b-button>
+  <b-button block variant="primary" @click="addNewLocation">
+    <b-spinner small v-if="loading"></b-spinner>
+    <span v-if="loading">Loading...</span>
+    <span v-if="!loading">Save Location</span>
+  </b-button>
+  <b-button block variant="secondary" @click="removePlaceSelection">
+    <span>Cancel</span>
+  </b-button>
 </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'CurrentPlace',
   props: {
@@ -47,9 +55,47 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      loading: false
+    }
   },
   methods: {
+    addNewLocation: function () {
+      this.loading = true
+      axios({
+        url:`${window.WP_OPTIONS.siteurl}/wp-json/crowd-fi/v1/map-point`,
+        method: 'POST',
+        headers:{
+          'X-WP-Nonce': window.WP_OPTIONS.rest_nonce
+        },
+        data: {
+          name: this.place.name,
+          formatted_address: this.place.formatted_address,
+          latitude: this.place.location.lat,
+          longitude: this.place.location.lng,
+          description: this.place.description
+        }
+      })
+      .then(res => {
+        this.loading = false
+        this.$emit('place-add-success', res.data)
+      })
+      .catch(error => {
+        this.loading = false
+        this.onError(error)
+      })
+    },
+    onError (error) {
+      this.$bvToast.toast(`Error: ${error.message}`, {
+        title: 'Error Adding Location',
+        variant: 'danger',
+        solid: true
+      })
+    },
+    removePlaceSelection () {
+      console.log('calling emit')
+      this.$emit('remove-place-selection', false)
+    }
 
   }
 }

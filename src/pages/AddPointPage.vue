@@ -22,7 +22,13 @@
           <b-button variant="outline-primary" @click="placeSelection = true">Fill Out Details</b-button>
         </div>
       </div>
-      <current-place v-if="placeSelection" :place="currentPlace"></current-place>
+      <current-place
+        v-if="placeSelection"
+        :place="currentPlace"
+        v-on:remove-place-selection="removePlaceSelection"
+        v-on:place-add-success="onSuccess"
+      >
+      </current-place>
 
 
       <div class="row mt-5">
@@ -49,6 +55,7 @@
 
 import CurrentPlace from '../components/CurrentPlace.vue'
 import Places from '../components/Places.vue'
+import axios from 'axios'
 export default {
   name: 'AddPointPage',
   components: {
@@ -73,6 +80,9 @@ export default {
     this.geolocate()
   },
   methods: {
+    removePlaceSelection () {
+      this.placeSelection = false
+    },
     manuallySetCurrentPlace (event) {
       console.log(event)
       this.currentPlace = {
@@ -107,6 +117,14 @@ export default {
         this.currentPlace.location.lng = this.center.lng
         this.$refs.mapRef.panTo(this.center)
       });
+    },
+    onSuccess (location) {
+      this.removePlaceSelection()
+      this.$bvToast.toast(`Successfully added new location for ${location.name}`, {
+        title: 'New Location Added',
+        variant: 'success',
+        solid: true
+      })
     }
   }
 }

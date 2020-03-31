@@ -30,6 +30,7 @@
 <script>
 import Places from '../components/Places.vue'
 import { gmapApi } from 'vue2-google-maps'
+import axios from 'axios'
 export default {
   name: 'SearchPage',
   components: {
@@ -50,30 +51,29 @@ export default {
   computed: {
     formattedPlaces () {
       return this.places.map(place => {
-        return {location: {lat: parseFloat(place.meta.latitude), lng: parseFloat(place.meta.longitude) }}
+        return {location: {lat: parseFloat(place.latitude), lng: parseFloat(place.longitude) }}
       })
     },
     google: gmapApi
   },
   mounted () {
     this.geolocate()
-    this.getPlaces()
   },
   methods: {
-    getPlaces() {
-      fetch(`${window.WP_OPTIONS.siteurl}/wp-json/wp/v2/map-point?_embed&per_page=100`)
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(point => {
+    getPlaces(lat, lng) {
+      axios.get(`${window.WP_OPTIONS.siteurl}/wp-json/crowd-fi/v1/map-point?latitude=${lat}&longitude=${lng}`)
+      .then(res => {
+        res.data.forEach(point => {
           this.places.push(point)
-        });
-      });
+        })
+      })
     },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
         console.log(position)
         this.center.lat = position.coords.latitude
         this.center.lng = position.coords.longitude
+        this.getPlaces(this.center.lat, this.center.lng)
       });
     }
   }
