@@ -66,7 +66,7 @@ class MapPointController {
             'id' => intval($post->ID),
             'name' => $post->post_title,
             'description' => $post->post_content,
-            'formatted_address' => floatval(get_post_meta($post->ID, 'formatted_address', true)),
+            'formatted_address' => get_post_meta($post->ID, 'formatted_address', true),
             'latitude' => floatval(get_post_meta($post->ID, 'latitude', true)),
             'longitude' => floatval(get_post_meta($post->ID, 'longitude', true)),
           ];
