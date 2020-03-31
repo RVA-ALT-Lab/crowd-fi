@@ -38,13 +38,13 @@ export default {
   },
   data () {
     return {
-      center: { lat: 45.508, lng: -73.587 },
+      center: { lat: 37.541290, lng: -77.434769 },
       markers: [],
       places: [],
       currentPlace: {
         name: 'Your Location',
         formatted_address: '',
-        location: { lat: 45.508, lng: -73.587 }
+        location: { lat: 37.541290, lng: -77.434769 }
       }
     }
   },
@@ -61,20 +61,45 @@ export default {
   },
   methods: {
     getPlaces(lat, lng) {
-      axios.get(`${window.WP_OPTIONS.siteurl}/wp-json/crowd-fi/v1/map-point?latitude=${lat}&longitude=${lng}`)
+      const url =
+        lat && lng
+        ? `${window.WP_OPTIONS.siteurl}/wp-json/crowd-fi/v1/map-point?latitude=${lat}&longitude=${lng}`
+        : `${window.WP_OPTIONS.siteurl}/wp-json/crowd-fi/v1/map-point?latitude=${37.541290}&longitude=${-77.434769}`
+
+      axios.get(url)
       .then(res => {
         res.data.forEach(point => {
           this.places.push(point)
         })
       })
     },
-    geolocate: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        console.log(position)
-        this.center.lat = position.coords.latitude
-        this.center.lng = position.coords.longitude
-        this.getPlaces(this.center.lat, this.center.lng)
-      });
+    onGeolocateSuccess () {
+      this.center.lat = position.coords.latitude
+      this.center.lng = position.coords.longitude
+      this.getPlaces(this.center.lat, this.center.lng)
+    },
+    onGeolocateError (error) {
+      const message = `Your experience will be degraded because we couldn't locate you. Plase enable geolocation services in your browser for this website and try again.\n\nError: ${error.message}`
+      this.$bvToast.toast(message, {
+        title: 'Error Getting Your Location',
+        variant: 'danger',
+        solid: true
+      })
+      this.getPlaces()
+    },
+    geolocate () {
+      try {
+        navigator.geolocation.getCurrentPosition(
+          this.onGeolocateSuccess,
+          this.onGeolocateError,
+          {
+            enableHighAccuracy: true,
+            timeout: 10000
+          }
+          );
+      } catch (error) {
+        this.onGeolocateError(error)
+      }
     }
   }
 }

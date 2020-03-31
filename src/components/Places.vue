@@ -8,7 +8,7 @@
     >
       <b-card-text>
         <div v-html="place.description"></div>
-        <p>{{Math.round(place.distance)}} Mile<span v-if="Math.round(place.distance) > 1 || Math.round(place.distance) < 1">s</span> Away</p>
+        <p v-if="place.distance">{{Math.round(place.distance)}} Mile<span v-if="Math.round(place.distance) > 1 || Math.round(place.distance) < 1">s</span> Away</p>
         <router-link class="card-link" :to="`/access-point/${place.id}`"> Get Driving Directions</router-link>
       </b-card-text>
     </b-card>

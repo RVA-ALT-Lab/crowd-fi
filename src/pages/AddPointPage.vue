@@ -26,7 +26,7 @@
         v-if="placeSelection"
         :place="currentPlace"
         v-on:remove-place-selection="removePlaceSelection"
-        v-on:place-add-success="onSuccess"
+        v-on:place-add-success="onPlaceAddSuccess"
       >
       </current-place>
 
@@ -64,12 +64,12 @@ export default {
   },
   data () {
     return {
-      center: { lat: 45.508, lng: -73.587 },
+      center: { lat: 37.541290, lng: -77.434769 },
       markers: [],
       currentPlace: {
         name: 'Your Location',
         formatted_address: '',
-        location: { lat: 45.508, lng: -73.587 }
+        location: { lat: 37.541290, lng: -77.434769 }
       },
       placeSelection: false
     }
@@ -107,18 +107,42 @@ export default {
       this.center = this.currentPlace.location
       this.$refs.mapRef.panTo(this.center)
     },
-    geolocate: function() {
-      console.log('this is getting called')
-      navigator.geolocation.getCurrentPosition(position => {
-        console.log(position)
-        this.center.lat = position.coords.latitude
-        this.center.lng = position.coords.longitude
-        this.currentPlace.location.lat = this.center.lat
-        this.currentPlace.location.lng = this.center.lng
-        this.$refs.mapRef.panTo(this.center)
-      });
+    onGeolocateSuccess () {
+      this.center.lat = position.coords.latitude
+      this.center.lng = position.coords.longitude
+      this.currentPlace.location.lat = this.center.lat
+      this.currentPlace.location.lng = this.center.lng
+      this.$refs.mapRef.panTo(this.center)
     },
-    onSuccess (location) {
+    onGeolocateError (error) {
+      const message = `Your experience will be degraded because we couldn't locate you. Plase enable geolocation services in your browser for this website and try again.\n\nError: ${error.message}`
+      this.$bvToast.toast(message, {
+        title: 'Error Getting Your Location',
+        variant: 'danger',
+        solid: true
+      })
+      const position = { lat: 37.541290, lng: -77.434769 }
+      this.center.lat = position.latitude
+      this.center.lng = position.longitude
+      this.currentPlace.location.lat = this.center.lat
+      this.currentPlace.location.lng = this.center.lng
+      this.$refs.mapRef.panTo(this.center)
+    },
+    geolocate () {
+      try {
+        navigator.geolocation.getCurrentPosition(
+          this.onGeolocateSuccess,
+          this.onGeolocateError,
+          {
+            enableHighAccuracy: true,
+            timeout: 10000
+          }
+          );
+      } catch (error) {
+        this.onGeolocateError(error)
+      }
+    },
+    onPlaceAddSuccess (location) {
       this.removePlaceSelection()
       this.$bvToast.toast(`Successfully added new location for ${location.name}`, {
         title: 'New Location Added',

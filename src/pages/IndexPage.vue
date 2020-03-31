@@ -13,6 +13,10 @@
     <p>
       This map is sourced from the community, so please help us in adding public wi-fi access points to ensure that everyone can teach, learn, and work remotely to help flatten the curve.
     </p>
+    <b-alert show variant="dark">
+      <h4><b-icon-exclamation-diamond></b-icon-exclamation-diamond> Geolocation Features</h4>
+      <p>This website uses browser geolocation features to access your current location and find you the nearest wi-fi hotspots. If you are not prompted to allow access to your location, please update your security preferences to allow this site access to your location. You will be unable to generate directions without this feature enabled.</p>
+    </b-alert>
 
     <b-button variant="primary" to="/search"><b-icon-search></b-icon-search> Search Access Points</b-button>
     <b-button variant="success" to="/add-point"><b-icon-plus></b-icon-plus> Add Access Point</b-button>
