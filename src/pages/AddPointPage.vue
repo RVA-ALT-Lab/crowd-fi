@@ -107,7 +107,7 @@ export default {
       this.center = this.currentPlace.location
       this.$refs.mapRef.panTo(this.center)
     },
-    onGeolocateSuccess () {
+    onGeolocateSuccess (position) {
       this.center.lat = position.coords.latitude
       this.center.lng = position.coords.longitude
       this.currentPlace.location.lat = this.center.lat
