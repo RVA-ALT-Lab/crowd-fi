@@ -73,7 +73,7 @@ export default {
         })
       })
     },
-    onGeolocateSuccess () {
+    onGeolocateSuccess (position) {
       this.center.lat = position.coords.latitude
       this.center.lng = position.coords.longitude
       this.getPlaces(this.center.lat, this.center.lng)
