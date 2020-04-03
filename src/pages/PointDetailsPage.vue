@@ -5,8 +5,8 @@
       <div class="row">
         <div class="col">
           <h2>Directions</h2>
-          <b-alert show="geolocationError" variant="dark">
-            <h4><b-icon-exclamation-diamond></b-icon-exclamation-diamond> Geolocation Features</h4>
+          <b-alert v-if="geolocationError" variant="dark">
+            <h4><b-icon-exclamation-diamond></b-icon-exclamation-diamond> Enable Geolocation Features</h4>
             <p>This website uses browser geolocation features to access your current location and find you the nearest wi-fi hotspots. If you are not prompted to allow access to your location, please update your security preferences to allow this site access to your location. You will be unable to generate directions without this feature enabled.</p>
           </b-alert>
           <gmap-map
