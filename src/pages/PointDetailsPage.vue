@@ -5,11 +5,16 @@
       <div class="row">
         <div class="col">
           <h2>Directions</h2>
+          <b-alert show="geolocationError" variant="dark">
+            <h4><b-icon-exclamation-diamond></b-icon-exclamation-diamond> Geolocation Features</h4>
+            <p>This website uses browser geolocation features to access your current location and find you the nearest wi-fi hotspots. If you are not prompted to allow access to your location, please update your security preferences to allow this site access to your location. You will be unable to generate directions without this feature enabled.</p>
+          </b-alert>
           <gmap-map
             :center="center"
             :zoom="12"
             style="width:100%;  height: 400px;"
             ref="mapRef"
+            v-if="!geolocationError"
           >
           </gmap-map>
           <div ref="directionsDiv"></div>
@@ -33,7 +38,8 @@ export default {
       accessPoint: {
         location: {lat: null, lng: null}
       },
-      overlay: true
+      overlay: true,
+      geolocationError: false
     }
   },
   computed: {
@@ -45,8 +51,16 @@ export default {
   methods: {
     coordinateDirectionsRequest () {
       this.getAccessPoint().then(accessPoint => {
-        this.geolocate().then(position => {
+        this.geolocate()
+        .then(position => {
           this.generateDirections(this.currentLocation.location, this.accessPoint.location)
+        }).catch(error => {
+          this.overlay = false
+          this.$bvToast.toast(message, {
+            title: 'Error Getting Your Location',
+            variant: 'danger',
+            solid: true
+          })
         })
       })
     },
@@ -63,11 +77,18 @@ export default {
     },
     geolocate: function() {
       return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(position => {
-          this.currentLocation.location.lat = position.coords.latitude
-          this.currentLocation.location.lng = position.coords.longitude
-          resolve(position)
-        });
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            this.currentLocation.location.lat = position.coords.latitude
+            this.currentLocation.location.lng = position.coords.longitude
+            resolve(position)
+          },
+          error => {
+            this.geolocationError = true
+            reject(error)
+          },
+          10000
+        );
       })
     },
     generateDirections (origin, destination) {
