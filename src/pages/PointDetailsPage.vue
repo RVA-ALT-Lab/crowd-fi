@@ -56,7 +56,7 @@ export default {
           this.generateDirections(this.currentLocation.location, this.accessPoint.location)
         }).catch(error => {
           this.overlay = false
-          this.$bvToast.toast(message, {
+          this.$bvToast.toast(error.message, {
             title: 'Error Getting Your Location',
             variant: 'danger',
             solid: true
