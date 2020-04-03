@@ -87,7 +87,10 @@ export default {
             this.geolocationError = true
             reject(error)
           },
-          10000
+          {
+            enableHighAccuracy: true,
+            timeout: 10000
+          }
         );
       })
     },
